@@ -11,12 +11,22 @@
 
 /* Стили панели навигации */
 .navbar p {
-    color: darkgray;
+    color: #095c37;
     padding-left: 15%;
 }
 /* Стили панели навигации при наведении мышью */
 .navbar p:hover {
     color: aliceblue;
+}
+
+input {
+    color: darkgrey;
+    top: 50px;
+}
+
+h1, p {
+    font-family: 'Segoe UI';
+    color: #095c37;
 }
 
 header {
@@ -26,6 +36,10 @@ header {
 footer {
     position: absolute;
     bottom: 0;
+    font-size: medium;
+    color: #095c37;
+    line-height: 66%;
+    padding-left: 1%;
 }
 
 aside {
@@ -35,7 +49,7 @@ aside {
     z-index: 1; /* Сайд-бар будет поверх остальных элементов */
     top: 0; /* Сайдбар будет в самой верхней части страницы */
     left: 0;
-    background-color: #111; /* Черный цвет фона (задан в виде кода) */
+    background-color: #49ad80;
     overflow-x: hidden; /* Отключаем горизонтальную прокрутку */
     padding-top: 20px;
 }
@@ -45,5 +59,5 @@ body {
 }
 
 header, footer, body, .video-container {
-    background-color: #e8fff5
+    background-color: #e6fff4
 }
