@@ -1,6 +1,7 @@
 ﻿/* Свойства стиля элемента. Подробнее о них в модуле по CSS */
 .video-container {
     display: inline-block;
+    margin-top: 0.5em;
     padding-left: 1%;
 }
 

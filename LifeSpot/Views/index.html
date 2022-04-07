@@ -4,25 +4,23 @@
     <meta charset="UTF-8">
     <title>LifeSpot</title>
     <link href="../Static/CSS/index.css" rel="stylesheet" type="text/css" />
-    <!--
-    <script>
-        let age = prompt('Введите ваш возраст')
-        if (age < 18) {
-            alert("Сайт не для малышей!")
-            window.location.href = "http://www.google.com"
-        }
-        else {
-            alert("Добро пожаловать на Lifespot!")
-        }
-    </script>
-    -->
+    <script src="../Static/JS/index.js"></script>
 </head>
 
 <header>
     <h1>Lifespot - прямые трансляции с улиц</h1>
     <p>Покажем, что происходит прямо сейчас</p>
-    <input type="text" size="50%" />
+    <input type="text" oninput="
+    let elements = document.getElementsByClassName('video-container');
+
+    for (let i = 0; i <= elements.length; i++){
+    console.log(elements[i])
+    }
+    "
+    size="50%" />
 </header>
+
+<!--SIDEBAR-->
 
 <body>
     <div class="bordered">
@@ -44,15 +42,6 @@
     </div>
 </body>
 
-<aside id="sidebar">
-    <div class="navbar">
-        <a href="/"><p>Все трансляции</p></a>
-        <a href="/"><p>О проекте</p></a>
-    </div>
-</aside>
+<!--FOOTER-->
 
-<footer>
-    <p>LifeSpot - все права защищены</p>
-    <p>Связаться с нами: contact@lifespot.ru</p>
-</footer>
 </html>
