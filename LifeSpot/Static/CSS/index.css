@@ -55,10 +55,28 @@ aside {
     padding-top: 20px;
 }
 
+aside p {
+    font-size: smaller;
+}
+
 body {
     padding-left: 11%;
 }
 
 header, footer, body, .video-container {
     background-color: #e6fff4
+}
+
+.review-container,.review-button{
+    display: inline-block;
+    margin-top: 0.5em;
+    padding-left: 1%;
+    padding-top: 1%;
+}
+
+.review-text {
+    display: block;
+    margin-top: 0.5em;
+    padding-left: 1%;
+    padding-top: 1%;
 }
