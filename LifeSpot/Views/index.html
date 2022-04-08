@@ -5,17 +5,22 @@
     <title>LifeSpot</title>
     <link href="../Static/CSS/index.css" rel="stylesheet" type="text/css" />
     <script src="../Static/JS/index.js"></script>
+    <script>
+        let session = handleSession();
+
+        logSession(session)
+    </script>
 </head>
 
 <header>
     <h1>Lifespot - прямые трансляции с улиц</h1>
     <p>Покажем, что происходит прямо сейчас</p>
     <input type="text" oninput="
-    let elements = document.getElementsByClassName('video-container');
-
-    for (let i = 0; i <= elements.length; i++){
-    console.log(elements[i])
+    const inputParseFunction = function () {
+        return document.getElementsByTagName('input')[0].value.toLowerCase();
     }
+
+    filterContent(inputParseFunction)
     "
     size="50%" />
 </header>
