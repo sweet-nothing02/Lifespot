@@ -6,19 +6,15 @@
     <link href="../Static/CSS/index.css" rel="stylesheet" type="text/css" />
     <script src="../Static/JS/index.js"></script>
     <script>
-        checkAge();
-
-        handleSession();
-
-        sessionLog();
+        handleSession(logger, checker);
 
         const inputParseFunction = function () {
             return document.getElementsByTagName('input')[0].value.toLowerCase();
         }
 
-        setTimeout(() =>
-            alert("Нравится LifeSpot? " + '\n' + "Подпишитесь на наш Instagram: @lifespot999 !"),
-            15000);
+        //setTimeout(() =>
+        //    alert("Нравится LifeSpot? " + '\n' + "Подпишитесь на наш Instagram: @lifespot999 !"),
+        //    15000);
     </script>
 </head>
 

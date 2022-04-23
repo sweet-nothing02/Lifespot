@@ -1,28 +1,122 @@
-﻿/* Свойства стиля элемента. Подробнее о них в модуле по CSS */
+﻿header, footer, aside, body, .navbar, .video-container {
+    font-family: 'Segoe UI';
+}
+
+header, footer, body, .video-container {
+    background-color: #e6fff4;
+}
+
+.video-container {
+    display: inline-block;
+    margin-top: 0.5em;
+    padding-left: 1%;
+    padding-top: 1%;
+}
+
+.review-container, .review-button {
+    display: inline-block;
+    margin-top: 0.5em;
+    padding-left: 1%;
+    padding-top: 1%;
+    font-size: small;
+}
+
+.review-text {
+    display: block;
+    margin-top: 0.5em;
+    padding-left: 1%;
+    padding-top: 1%;
+    font-size: small;
+}
+
+.navbar p {
+    color: #21703c;
+    padding-left: 15%;
+}
+
+.navbar p:hover {
+    color: aliceblue;
+}
+
+header {
+    padding-left: 1%;
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    right: 20px;
+    font-size: medium;
+    color: #095c37;
+    line-height: 66%;
+    padding-left: 1%;
+}
+
+aside {
+    height: 100%;
+    width: 10%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #49ad80;
+    overflow-x: hidden;
+    padding-top: 20px;
+}
+
+aside p {
+    font-size: smaller;
+}
+
+body {
+    padding-left: 11%;
+}
+
+a {
+    text-decoration: none;
+}
+
+input {
+    border: 2px solid darkgrey;
+    border-radius: 2px;
+    outline: none;
+}
+
+input:focus {
+    border: 2px solid dimgrey;
+}
+
+/*header, footer, aside, body, .navbar, .video-container {
+    font-family: 'Segoe UI';
+}
+
 .video-container {
     display: inline-block;
     margin-top: 0.5em;
     padding-left: 1%;
 }
 
+
 .navbar {
     color: darkgray;
     padding-left: 15%;
 }
 
-/* Стили панели навигации */
 .navbar p {
     color: #095c37;
     padding-left: 15%;
-}
+}*/
 /* Стили панели навигации при наведении мышью */
-.navbar p:hover {
+/*.navbar p:hover {
     color: aliceblue;
 }
 
 input {
-    color: darkgrey;
     top: 50px;
+}
+
+input:focus{
+
 }
 
 h1, p {
@@ -44,15 +138,15 @@ footer {
 }
 
 aside {
-    height: 100%; /* Высота в полный размер. Этот параметр можно убрать, если вы хотите выставлять высоту автоматически */
-    width: 10%;
-    position: absolute; /* Фиксированная позиция сайд-бара. Так он будет оставаться на месте при скроллинге */
-    z-index: 1; /* Сайд-бар будет поверх остальных элементов */
-    top: 0; /* Сайдбар будет в самой верхней части страницы */
-    left: 0;
+    height: 100%;*/ /* Высота в полный размер. Этот параметр можно убрать, если вы хотите выставлять высоту автоматически */
+    /*width: 10%;
+    position: absolute;*/ /* Фиксированная позиция сайд-бара. Так он будет оставаться на месте при скроллинге */
+    /*z-index: 1;*/ /* Сайд-бар будет поверх остальных элементов */
+    /*top: 0;*/ /* Сайдбар будет в самой верхней части страницы */
+    /*left: 0;
     background-color: #49ad80;
-    overflow-x: hidden; /* Отключаем горизонтальную прокрутку */
-    padding-top: 20px;
+    overflow-x: hidden;*/ /* Отключаем горизонтальную прокрутку */
+    /*padding-top: 20px;
 }
 
 aside p {
@@ -81,4 +175,4 @@ header, footer, body, .video-container {
     padding-top: 1%;
     font-weight: 200;
     font-size: smaller;
-}
+}*/
