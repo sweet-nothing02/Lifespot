@@ -14,7 +14,7 @@ namespace LifeSpot
     {
         public static void MapImg(this IEndpointRouteBuilder builder)
         {
-            var imgFiles = new[] { "ny.jpg", "spb.jpg", "london" };
+            var imgFiles = new[] { "ny.jpg", "spb.jpg", "london.jpg" };
 
             foreach(var fileName in imgFiles)
             {
