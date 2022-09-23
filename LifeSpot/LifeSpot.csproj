@@ -4,4 +4,14 @@
         <TargetFramework>net5.0</TargetFramework>
     </PropertyGroup>
 
+    <ItemGroup>
+      <Content Include="Static\Images\london.jpg" />
+      <Content Include="Static\Images\ny.jpg" />
+      <Content Include="Static\Images\spb.jpg" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Новая папка\" />
+    </ItemGroup>
+
 </Project>

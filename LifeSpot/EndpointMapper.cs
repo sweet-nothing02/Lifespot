@@ -12,6 +12,20 @@ namespace LifeSpot
 {
     public static class EndpointMapper
     {
+        public static void MapImg(this IEndpointRouteBuilder builder)
+        {
+            var imgFiles = new[] { "ny.jpg", "spb.jpg", "london" };
+
+            foreach(var fileName in imgFiles)
+            {
+                builder.MapGet($"/Static/Images/{fileName}", async context =>
+                {
+                    var imgPath = Path.Combine(Directory.GetCurrentDirectory(), "Static", "Images", fileName);
+                    await context.Response.SendFileAsync(imgPath);
+                });
+            }
+        }
+
         /// <summary>
         /// Маппинг CSS-файлов
         /// </summary>
@@ -37,7 +51,7 @@ namespace LifeSpot
         /// <param name="builder"></param>
         public static void MapJs(this IEndpointRouteBuilder builder)
         {
-            var jsFiles = new[] { "index.js", "testing.js", "about.js" };
+            var jsFiles = new[] { "index.js", "testing.js", "about.js", "slider.js" };
 
             foreach (var fileName in jsFiles)
             {
