@@ -1,118 +1,128 @@
-﻿var slider = document.getElementById('slider'),
-    sliderItems = document.getElementById('slides'),
-    prev = document.getElementById('prev'),
-    next = document.getElementById('next');
+﻿////var sl1 = document.getElementById('slides');
+////var imgs = sl1.getElementsByTagName('img');
+////for (let i = 0; i < imgs.length; i++) {
+////    imgs[i].style.visibility = 'hidden';
+////}
 
-function slide(wrapper, items, prev, next) {
-    var posX1 = 0,
-        posX2 = 0,
-        posInitial,
-        posFinal,
-        threshold = 100,
-        slides = items.getElementsByClassName('slide'),
-        slidesLength = slides.length,
-        slideSize = items.getElementsByClassName('slide')[0].offsetWidth,
-        firstSlide = slides[0],
-        lastSlide = slides[slidesLength - 1],
-        cloneFirst = firstSlide.cloneNode(true),
-        cloneLast = lastSlide.cloneNode(true),
-        index = 0,
-        allowShift = true;
+document.getElementById('slider').style.display = 'none';
 
-    // Clone first and last slide
-    items.appendChild(cloneFirst);
-    items.insertBefore(cloneLast, firstSlide);
-    wrapper.classList.add('loaded');
 
-    // Mouse events
-    items.onmousedown = dragStart;
 
-    // Touch events
-    items.addEventListener('touchstart', dragStart);
-    items.addEventListener('touchend', dragEnd);
-    items.addEventListener('touchmove', dragAction);
+////var slider = document.getElementById('slider'),
+////    sliderItems = document.getElementById('slides'),
+////    prev = document.getElementById('prev'),
+////    next = document.getElementById('next');
 
-    // Click events
-    prev.addEventListener('click', function () { shiftSlide(-1) });
-    next.addEventListener('click', function () { shiftSlide(1) });
+////function slide(wrapper, items, prev, next) {
+////    var posX1 = 0,
+////        posX2 = 0,
+////        posInitial,
+////        posFinal,
+////        threshold = 100,
+////        slides = items.getElementsByClassName('slide'),
+////        slidesLength = slides.length,
+////        slideSize = items.getElementsByClassName('slide')[0].offsetWidth,
+////        firstSlide = slides[0],
+////        lastSlide = slides[slidesLength - 1],
+////        cloneFirst = firstSlide.cloneNode(true),
+////        cloneLast = lastSlide.cloneNode(true),
+////        index = 0,
+////        allowShift = true;
 
-    // Transition events
-    items.addEventListener('transitionend', checkIndex);
+////    // Clone first and last slide
+////    items.appendChild(cloneFirst);
+////    items.insertBefore(cloneLast, firstSlide);
+////    wrapper.classList.add('loaded');
 
-    function dragStart(e) {
-        e = e || window.event;
-        e.preventDefault();
-        posInitial = items.offsetLeft;
+////    // Mouse events
+////    items.onmousedown = dragStart;
 
-        if (e.type == 'touchstart') {
-            posX1 = e.touches[0].clientX;
-        } else {
-            posX1 = e.clientX;
-            document.onmouseup = dragEnd;
-            document.onmousemove = dragAction;
-        }
-    }
+////    // Touch events
+////    items.addEventListener('touchstart', dragStart);
+////    items.addEventListener('touchend', dragEnd);
+////    items.addEventListener('touchmove', dragAction);
 
-    function dragAction(e) {
-        e = e || window.event;
+////    // Click events
+////    prev.addEventListener('click', function () { shiftSlide(-1) });
+////    next.addEventListener('click', function () { shiftSlide(1) });
 
-        if (e.type == 'touchmove') {
-            posX2 = posX1 - e.touches[0].clientX;
-            posX1 = e.touches[0].clientX;
-        } else {
-            posX2 = posX1 - e.clientX;
-            posX1 = e.clientX;
-        }
-        items.style.left = (items.offsetLeft - posX2) + "px";
-    }
+////    // Transition events
+////    items.addEventListener('transitionend', checkIndex);
 
-    function dragEnd(e) {
-        posFinal = items.offsetLeft;
-        if (posFinal - posInitial < -threshold) {
-            shiftSlide(1, 'drag');
-        } else if (posFinal - posInitial > threshold) {
-            shiftSlide(-1, 'drag');
-        } else {
-            items.style.left = (posInitial) + "px";
-        }
+////    function dragStart(e) {
+////        e = e || window.event;
+////        e.preventDefault();
+////        posInitial = items.offsetLeft;
 
-        document.onmouseup = null;
-        document.onmousemove = null;
-    }
+////        if (e.type == 'touchstart') {
+////            posX1 = e.touches[0].clientX;
+////        } else {
+////            posX1 = e.clientX;
+////            document.onmouseup = dragEnd;
+////            document.onmousemove = dragAction;
+////        }
+////    }
 
-    function shiftSlide(dir, action) {
-        items.classList.add('shifting');
+////    function dragAction(e) {
+////        e = e || window.event;
 
-        if (allowShift) {
-            if (!action) { posInitial = items.offsetLeft; }
+////        if (e.type == 'touchmove') {
+////            posX2 = posX1 - e.touches[0].clientX;
+////            posX1 = e.touches[0].clientX;
+////        } else {
+////            posX2 = posX1 - e.clientX;
+////            posX1 = e.clientX;
+////        }
+////        items.style.left = (items.offsetLeft - posX2) + "px";
+////    }
 
-            if (dir == 1) {
-                items.style.left = (posInitial - slideSize) + "px";
-                index++;
-            } else if (dir == -1) {
-                items.style.left = (posInitial + slideSize) + "px";
-                index--;
-            }
-        };
+////    function dragEnd(e) {
+////        posFinal = items.offsetLeft;
+////        if (posFinal - posInitial < -threshold) {
+////            shiftSlide(1, 'drag');
+////        } else if (posFinal - posInitial > threshold) {
+////            shiftSlide(-1, 'drag');
+////        } else {
+////            items.style.left = (posInitial) + "px";
+////        }
 
-        allowShift = false;
-    }
+////        document.onmouseup = null;
+////        document.onmousemove = null;
+////    }
 
-    function checkIndex() {
-        items.classList.remove('shifting');
+////    function shiftSlide(dir, action) {
+////        items.classList.add('shifting');
 
-        if (index == -1) {
-            items.style.left = -(slidesLength * slideSize) + "px";
-            index = slidesLength - 1;
-        }
+////        if (allowShift) {
+////            if (!action) { posInitial = items.offsetLeft; }
 
-        if (index == slidesLength) {
-            items.style.left = -(1 * slideSize) + "px";
-            index = 0;
-        }
+////            if (dir == 1) {
+////                items.style.left = (posInitial - slideSize) + "px";
+////                index++;
+////            } else if (dir == -1) {
+////                items.style.left = (posInitial + slideSize) + "px";
+////                index--;
+////            }
+////        };
 
-        allowShift = true;
-    }
-}
+////        allowShift = false;
+////    }
 
-slide(slider, sliderItems, prev, next);
+////    function checkIndex() {
+////        items.classList.remove('shifting');
+
+////        if (index == -1) {
+////            items.style.left = -(slidesLength * slideSize) + "px";
+////            index = slidesLength - 1;
+////        }
+
+////        if (index == slidesLength) {
+////            items.style.left = -(1 * slideSize) + "px";
+////            index = 0;
+////        }
+
+////        allowShift = true;
+////    }
+////}
+
+////slide(slider, sliderItems, prev, next);

@@ -86,18 +86,22 @@ input:focus {
     border: 2px solid dimgrey;
 }
 
+/*#image{
+    display: none;
+}*/
+
 /*Слайдер*/
 
-/*@import url('https://fonts.googleapis.com/css?family=Roboto');*/
+@import url('https://fonts.googleapis.com/css?family=Roboto');
 
 $slider-width: 400px;
 $slider-height: 300px;
 
 /** {
     box-sizing: border-box;
-}*/
+}
 
-/*body {
+body {
     height: 100%;
     background-color: #7656d6;
     color: #333;
@@ -150,7 +154,7 @@ $slider-height: 300px;
     border-radius: 2px;
 }
 
-/*.slider.loaded {
+.slider.loaded {
     .slide:nth-child(2),
     .slide:nth-child(7) { background: #FFCF47 }
     
@@ -168,7 +172,7 @@ $slider-height: 300px;
     .slide:nth-child(5) {
         background: #ff8686
     }
-}*/
+}
 
 .control {
     position: absolute;
