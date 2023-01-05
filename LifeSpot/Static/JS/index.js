@@ -54,9 +54,21 @@ function filterContent( inputParseFunction ) {
     }
 }
 
+function showTime(city, timeZone) {
+    let time = document.getElementById(city);
+    let h = new Date().getUTCHours();
+    let m = new Date().getUTCMinutes();
+    let s = new Date().getUTCSeconds();
 
-//function handleSession() {
-//    session.set("startDate", new Date().toLocaleString())
-
-//    session.set("userAgent", window.navigator.userAgent)
-//}
+    if (h + timeZone > 23 || h + timeZone < 0)
+        h = Math.abs(h + timeZone - 24);
+    else
+        h = h + timeZone;
+    if (h < 10)
+        h = '0' + h;
+    if (m < 10)
+        m = '0' + m;
+    if (s < 10)
+        s = '0' + s;
+    time.innerHTML = h + ":" + m + ":" + s;
+}

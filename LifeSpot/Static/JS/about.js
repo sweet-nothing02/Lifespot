@@ -59,122 +59,120 @@ function addLike(id) {
     element.innerText = array.join(' ')
 }
 
-// Slider
-var slider = document.getElementById('slider'),
-    sliderItems = document.getElementById('slides'),
-    prev = document.getElementById('prev'),
-    next = document.getElementById('next');
+//Слайдер
+const slides = document.getElementById("slides");
+const allSlides = document.querySelectorAll(".slide");
+const slidesLength = allSlides.length;
+const slideWidth = allSlides[0].offsetWidth;
 
-function slide(wrapper, items, prev, next) {
-    var posX1 = 0,
-        posX2 = 0,
-        posInitial,
-        posFinal,
-        threshold = 100,
-        slides = items.getElementsByClassName('slide'),
-        slidesLength = slides.length,
-        slideSize = items.getElementsByClassName('slide')[0].offsetWidth,
-        firstSlide = slides[0],
-        lastSlide = slides[slidesLength - 1],
-        cloneFirst = firstSlide.cloneNode(true),
-        cloneLast = lastSlide.cloneNode(true),
-        index = 0,
-        allowShift = true;
+let index = 0;
+let posX1;
+let posX2;
+let initialPosition;
+let finalPosition;
 
-    // Clone first and last slide
-    items.appendChild(cloneFirst);
-    items.insertBefore(cloneLast, firstSlide);
-    wrapper.classList.add('loaded');
+let canISlide = true;
 
-    // Mouse events
-    items.onmousedown = dragStart;
+const prev = document.getElementById("prev");
+const next = document.getElementById("next");
 
-    // Touch events
-    items.addEventListener('touchstart', dragStart);
-    items.addEventListener('touchend', dragEnd);
-    items.addEventListener('touchmove', dragAction);
+const firstSlide = allSlides[0];
+const lastSlide = allSlides[allSlides.length - 1];
 
-    // Click events
-    prev.addEventListener('click', function () { shiftSlide(-1) });
-    next.addEventListener('click', function () { shiftSlide(1) });
+const cloneFirstSlide = firstSlide.cloneNode(true);
+const cloneLastSlide = lastSlide.cloneNode(true);
 
-    // Transition events
-    items.addEventListener('transitionend', checkIndex);
+let description = document.getElementById("description");
+const descriptions = ["Нью-Йорк, США<span class=\"tooltip\">Нью-Йорк — крупнейший город США, входящий в одну из крупнейших агломераций мира. Население города составляет 8 467 513 человек, агломерации — 19,77 млн (оценка на 2021 год). Нью-Йорк расположен на берегу Атлантического океана в юго-восточной части штата Нью-Йорк. Город был основан в начале XVII века голландскими колонистами и до 1664 года назывался Новый Амстердам.</span>",
+    "Санкт-Петербург, Россия<span class=\"tooltip\">Санкт-Петербург – русский портовый город на побережье Балтийского моря, который в течение двух веков служил столицей Российской империи. Он был основан в 1703 году Петром I, которому воздвигнут знаменитый памятник \"Медный всадник\". Город по праву считается культурным центром страны.</span>",
+    "Лондон, Великобритания<span class=\"tooltip\">Лондон — столица и крупнейший город Англии и Великобритании. Население составляет 8 908 081 чел.(2018) — третий по величине город Европы. Образует агломерацию Большой Лондон и более обширный метрополитенский район. Расположен на юго-востоке острова Великобритания, на равнине в устье Темзы, вблизи Северного моря. Главный политический, экономический и культурный центр Соединённого Королевства.</span>"];
 
-    function dragStart(e) {
-        e = e || window.event;
-        e.preventDefault();
-        posInitial = items.offsetLeft;
+slides.appendChild(cloneFirstSlide);
+slides.insertBefore(cloneLastSlide, firstSlide);
 
-        if (e.type == 'touchstart') {
-            posX1 = e.touches[0].clientX;
-        } else {
-            posX1 = e.clientX;
-            document.onmouseup = dragEnd;
-            document.onmousemove = dragAction;
-        }
-    }
+next.addEventListener("click", () => switchSlide("next"));
+prev.addEventListener("click", () => switchSlide("prev"));
 
-    function dragAction(e) {
-        e = e || window.event;
+slides.addEventListener("transitionend", checkIndex);
 
-        if (e.type == 'touchmove') {
-            posX2 = posX1 - e.touches[0].clientX;
-            posX1 = e.touches[0].clientX;
-        } else {
-            posX2 = posX1 - e.clientX;
-            posX1 = e.clientX;
-        }
-        items.style.left = (items.offsetLeft - posX2) + "px";
-    }
+slides.addEventListener("mousedown", dragStart);
 
-    function dragEnd(e) {
-        posFinal = items.offsetLeft;
-        if (posFinal - posInitial < -threshold) {
-            shiftSlide(1, 'drag');
-        } else if (posFinal - posInitial > threshold) {
-            shiftSlide(-1, 'drag');
-        } else {
-            items.style.left = (posInitial) + "px";
-        }
+slides.addEventListener("touchstart", dragStart);
+slides.addEventListener("touchmove", dragMove);
+slides.addEventListener("touchend", dragEnd);
 
-        document.onmouseup = null;
-        document.onmousemove = null;
-    }
+function dragStart(e) {
+    e.preventDefault();
+    initialPosition = slides.offsetLeft;
 
-    function shiftSlide(dir, action) {
-        items.classList.add('shifting');
+    if (e.type == "touchstart") {
+        posX1 = e.touches[0].clientX;
+    } else {
+        posX1 = e.clientX;
 
-        if (allowShift) {
-            if (!action) { posInitial = items.offsetLeft; }
-
-            if (dir == 1) {
-                items.style.left = (posInitial - slideSize) + "px";
-                index++;
-            } else if (dir == -1) {
-                items.style.left = (posInitial + slideSize) + "px";
-                index--;
-            }
-        };
-
-        allowShift = false;
-    }
-
-    function checkIndex() {
-        items.classList.remove('shifting');
-
-        if (index == -1) {
-            items.style.left = -(slidesLength * slideSize) + "px";
-            index = slidesLength - 1;
-        }
-
-        if (index == slidesLength) {
-            items.style.left = -(1 * slideSize) + "px";
-            index = 0;
-        }
-
-        allowShift = true;
+        document.onmouseup = dragEnd;
+        document.onmousemove = dragMove;
     }
 }
 
-slide(slider, sliderItems, prev, next);
+function dragMove(e) {
+    if (e.type == "touchmove") {
+        posX2 = posX1 - e.touches[0].clientX;
+        posX1 = e.touches[0].clientX;
+    } else {
+        posX2 = posX1 - e.clientX;
+        posX1 = e.clientX;
+    }
+
+    slides.style.left = `${slides.offsetLeft - posX2}px`;
+}
+
+function dragEnd() {
+    finalPosition = slides.offsetLeft;
+    if (finalPosition - initialPosition < -200) {
+        switchSlide("next", "dragging");
+    } else if (finalPosition - initialPosition > 200) {
+        switchSlide("prev", "dragging");
+    } else {
+        slides.style.left = `${initialPosition}px`;
+    }
+
+    document.onmouseup = null;
+    document.onmousemove = null;
+}
+
+function switchSlide(arg, arg2) {
+    slides.classList.add("transition");
+
+    if (canISlide) {
+        if (!arg2) {
+            initialPosition = slides.offsetLeft;
+        }
+        if (arg == "next") {
+            slides.style.left = `${initialPosition - slideWidth}px`;
+            index++;
+        } else {
+            slides.style.left = `${initialPosition + slideWidth}px`;
+            index--;
+        }
+    }
+
+    canISlide = false;
+}
+
+function checkIndex() {
+    slides.classList.remove("transition");
+
+    if (index == -1) {
+        slides.style.left = `-${slidesLength * slideWidth}px`;
+        index = slidesLength - 1;
+    }
+
+    if (index == slidesLength) {
+        slides.style.left = `-${1 * slideWidth}px`;
+        index = 0;
+    }
+
+    canISlide = true;
+    description.innerHTML = descriptions[index];
+}

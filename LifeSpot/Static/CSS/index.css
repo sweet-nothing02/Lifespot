@@ -1,9 +1,13 @@
-﻿header, footer, aside, body, .navbar, .video-container {
-    font-family: 'Segoe UI';
+﻿* {
+    font-family: 'Century Gothic';
 }
 
 header, footer, body, .video-container {
-    background-color: #e6fff4;
+    background-color: #ebeff5;
+}
+
+h1 {
+    color: #db8916;
 }
 
 .video-container {
@@ -11,6 +15,10 @@ header, footer, body, .video-container {
     margin-top: 0.5em;
     padding-left: 1%;
     padding-top: 1%;
+}
+
+iframe {
+    border-radius: 8px;
 }
 
 .review-container, .review-button {
@@ -30,12 +38,19 @@ header, footer, body, .video-container {
 }
 
 .navbar p {
-    color: #21703c;
+    color: #01165c;
     padding-left: 15%;
 }
 
 .navbar p:hover {
+    background-color: #01165c;
+    border-radius: 6px;
     color: aliceblue;
+}
+
+.navbar p:active {
+    background-color: #01165c;
+    transform: scale(1.15);
 }
 
 header {
@@ -43,11 +58,11 @@ header {
 }
 
 footer {
-    position: absolute;
+    position: fixed;
     bottom: 0;
     right: 20px;
     font-size: medium;
-    color: #095c37;
+    color: #01165c;
     line-height: 66%;
     padding-left: 1%;
 }
@@ -59,7 +74,7 @@ aside {
     z-index: 1;
     top: 0;
     left: 0;
-    background-color: #49ad80;
+    background-color: #db8916;
     overflow-x: hidden;
     padding-top: 20px;
 }
@@ -78,132 +93,128 @@ a {
 
 input {
     border: 2px solid darkgrey;
-    border-radius: 2px;
+    border-radius: 4px;
     outline: none;
+    width: max-content;
 }
 
 input:focus {
     border: 2px solid dimgrey;
 }
 
-/*#image{
-    display: none;
-}*/
+button {
+    width: min-content;
+    color: #01165c;
+    background-color: #db8916;
+    border-color: #01165c;
+    border-radius: 6px;
+}
+
+button:active {
+    color: aliceblue;
+    background-color: #01165c;
+    border-radius: 6px;
+}
+
+#ny, #spb, #london {
+    color: #01165c;
+}
 
 /*Слайдер*/
 
-@import url('https://fonts.googleapis.com/css?family=Roboto');
-
-$slider-width: 400px;
-$slider-height: 300px;
-
-/** {
-    box-sizing: border-box;
-}
-
-body {
+img {
+    width: 100%;
     height: 100%;
-    background-color: #7656d6;
-    color: #333;
-    font-family: 'Roboto', sans-serif;
-    text-align: center;
-    letter-spacing: 0.15em;
-    font-size: 22px;
-}*/
+}
 
 .slider {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: $slider-width;
-    height: $slider-height;
-    box-shadow: 3px 3px 10px rgba(0,0,0,.2);
-}
-
-.wrapper {
+    display: flex;
     overflow: hidden;
     position: relative;
-    width: $slider-width;
-    height: $slider-height;
-    z-index: 1;
+    width: 1000px;
+    height: 408px;
+    border-radius: 15px;
 }
 
 .slides {
-    display: flex;
-    position: relative;
-    top: 0;
-    left: -$slider-width;
     width: 10000px;
+    display: flex;
+    position: absolute;
+    top: 0;
+    left: -1000px;
+    cursor: pointer;
 }
 
-.slides.shifting {
-    transition: left .2s ease-out;
+.slides.transition {
+    transition: all 0.3s ease-in-out;
 }
 
 .slide {
-    width: $slider-width;
-    height: $slider-height;
-    cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    transition: all 1s;
-    position: relative;
-    background: #FFCF47;
-    border-radius: 2px;
+    width: 1000px;
+    height: 408px;
 }
 
-.slider.loaded {
-    .slide:nth-child(2),
-    .slide:nth-child(7) { background: #FFCF47 }
-    
-    .slide:nth-child(1),
-    .slide:nth-child(6) { background: #7ADCEF }
-    
-    .slide:nth-child(3) {
-        background: #3CFF96
-    }
-    
-    .slide:nth-child(4) {
-        background: #a78df5
-    }
-    
-    .slide:nth-child(5) {
-        background: #ff8686
-    }
-}
-
-.control {
+.prev,
+.next {
     position: absolute;
     top: 50%;
-    width: 50px;
-    height: 50px;
-    background: #fff;
-    border-radius: 50px;
-    margin-top: -20px;
-    box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.3);
-    z-index: 2;
-}
-
-.prev, .next {
-    background-size: 22px;
-    background-position: center;
-    background-repeat: no-repeat;
-    cursor: pointer;
-}
-
-.prev {
-    background-image: url(https://cdn0.iconfinder.com/data/icons/navigation-set-arrows-part-one/32/ChevronLeft-512.png);
-    left: -20px;
+    transform: translateY(-50%);
+    color: #f3f3f3;
+    font-size: 4rem;
 }
 
 .next {
-    background-image: url(https://cdn0.iconfinder.com/data/icons/navigation-set-arrows-part-one/32/ChevronRight-512.png);
-    right: -20px;
+    right: 4rem;
+}
+
+.prev {
+    left: 4rem;
 }
 
 .prev:active,
 .next:active {
-    transform: scale(.8);
+    color: #db8916;
+}
+
+#description {
+    position: inherit;
+    top: 85%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 4px;
+    border-radius: 10px;
+    font-size: 16px;
+    height: max-content;
+    color: aliceblue;
+    background-color: #db8916;
+}
+
+.tooltip {
+    visibility: hidden;
+    position: absolute;
+    bottom: 91%;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    font-size: 12px;
+    background-color: #192733;
+    border-radius: 10px;
+    padding: 10px 15px 10px 15px;
+    width: 200px;
+    z-index: 5;
+}
+
+#description:hover .tooltip {
+    visibility: visible;
+}
+
+.tooltip::before {
+    content: "";
+    position: absolute;
+    transform: rotate(-45deg) scale(1.4);
+    background-color: #192733;
+    padding: 5px;
+    z-index: 3;
+    top: 97%;
+    left: 45%;
 }

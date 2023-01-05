@@ -1,128 +1,118 @@
-﻿////var sl1 = document.getElementById('slides');
-////var imgs = sl1.getElementsByTagName('img');
-////for (let i = 0; i < imgs.length; i++) {
-////    imgs[i].style.visibility = 'hidden';
-////}
+﻿const slides = document.getElementById("slides");
+const allSlides = document.querySelectorAll(".slide");
+const slidesLength = allSlides.length;
+const slideWidth = allSlides[0].offsetWidth;
 
-document.getElementById('slider').style.display = 'none';
+let index = 0;
+let posX1;
+let posX2;
+let initialPosition;
+let finalPosition;
 
+let canISlide = true;
 
+const prev = document.getElementById("prev");
+const next = document.getElementById("next");
 
-////var slider = document.getElementById('slider'),
-////    sliderItems = document.getElementById('slides'),
-////    prev = document.getElementById('prev'),
-////    next = document.getElementById('next');
+const firstSlide = allSlides[0];
+const lastSlide = allSlides[allSlides.length - 1];
 
-////function slide(wrapper, items, prev, next) {
-////    var posX1 = 0,
-////        posX2 = 0,
-////        posInitial,
-////        posFinal,
-////        threshold = 100,
-////        slides = items.getElementsByClassName('slide'),
-////        slidesLength = slides.length,
-////        slideSize = items.getElementsByClassName('slide')[0].offsetWidth,
-////        firstSlide = slides[0],
-////        lastSlide = slides[slidesLength - 1],
-////        cloneFirst = firstSlide.cloneNode(true),
-////        cloneLast = lastSlide.cloneNode(true),
-////        index = 0,
-////        allowShift = true;
+const cloneFirstSlide = firstSlide.cloneNode(true);
+const cloneLastSlide = lastSlide.cloneNode(true);
 
-////    // Clone first and last slide
-////    items.appendChild(cloneFirst);
-////    items.insertBefore(cloneLast, firstSlide);
-////    wrapper.classList.add('loaded');
+slides.appendChild(cloneFirstSlide);
+slides.insertBefore(cloneLastSlide, firstSlide);
 
-////    // Mouse events
-////    items.onmousedown = dragStart;
+next.addEventListener("click", () => switchSlide("next"));
+prev.addEventListener("click", () => switchSlide("prev"));
 
-////    // Touch events
-////    items.addEventListener('touchstart', dragStart);
-////    items.addEventListener('touchend', dragEnd);
-////    items.addEventListener('touchmove', dragAction);
+slides.addEventListener("transitionend", checkIndex);
 
-////    // Click events
-////    prev.addEventListener('click', function () { shiftSlide(-1) });
-////    next.addEventListener('click', function () { shiftSlide(1) });
+slides.addEventListener("mousedown", dragStart);
 
-////    // Transition events
-////    items.addEventListener('transitionend', checkIndex);
+slides.addEventListener("touchstart", dragStart);
+slides.addEventListener("touchmove", dragMove);
+slides.addEventListener("touchend", dragEnd);
 
-////    function dragStart(e) {
-////        e = e || window.event;
-////        e.preventDefault();
-////        posInitial = items.offsetLeft;
+function dragStart(e) {
+    e.preventDefault();
+    initialPosition = slides.offsetLeft;
 
-////        if (e.type == 'touchstart') {
-////            posX1 = e.touches[0].clientX;
-////        } else {
-////            posX1 = e.clientX;
-////            document.onmouseup = dragEnd;
-////            document.onmousemove = dragAction;
-////        }
-////    }
+    if (e.type == "touchstart") {
+        posX1 = e.touches[0].clientX;
+    } else {
+        posX1 = e.clientX;
 
-////    function dragAction(e) {
-////        e = e || window.event;
+        document.onmouseup = dragEnd;
+        document.onmousemove = dragMove;
+    }
+}
 
-////        if (e.type == 'touchmove') {
-////            posX2 = posX1 - e.touches[0].clientX;
-////            posX1 = e.touches[0].clientX;
-////        } else {
-////            posX2 = posX1 - e.clientX;
-////            posX1 = e.clientX;
-////        }
-////        items.style.left = (items.offsetLeft - posX2) + "px";
-////    }
+function dragMove(e) {
+    if (e.type == "touchmove") {
+        posX2 = posX1 - e.touches[0].clientX;
+        posX1 = e.touches[0].clientX;
+    } else {
+        posX2 = posX1 - e.clientX;
+        posX1 = e.clientX;
+    }
 
-////    function dragEnd(e) {
-////        posFinal = items.offsetLeft;
-////        if (posFinal - posInitial < -threshold) {
-////            shiftSlide(1, 'drag');
-////        } else if (posFinal - posInitial > threshold) {
-////            shiftSlide(-1, 'drag');
-////        } else {
-////            items.style.left = (posInitial) + "px";
-////        }
+    slides.style.left = `${slides.offsetLeft - posX2}px`;
+}
 
-////        document.onmouseup = null;
-////        document.onmousemove = null;
-////    }
+function dragEnd() {
+    /* 
+      three possibilities:
+      1. next slide
+      2. prev slide
+      3. stay still
+      */
+    finalPosition = slides.offsetLeft;
+    if (finalPosition - initialPosition < -200) {
+        switchSlide("next", "dragging");
+    } else if (finalPosition - initialPosition > 200) {
+        switchSlide("prev", "dragging");
+    } else {
+        slides.style.left = `${initialPosition}px`;
+    }
 
-////    function shiftSlide(dir, action) {
-////        items.classList.add('shifting');
+    document.onmouseup = null;
+    document.onmousemove = null;
+}
 
-////        if (allowShift) {
-////            if (!action) { posInitial = items.offsetLeft; }
+function switchSlide(arg, arg2) {
+    slides.classList.add("transition");
 
-////            if (dir == 1) {
-////                items.style.left = (posInitial - slideSize) + "px";
-////                index++;
-////            } else if (dir == -1) {
-////                items.style.left = (posInitial + slideSize) + "px";
-////                index--;
-////            }
-////        };
+    if (canISlide) {
+        if (!arg2) {
+            initialPosition = slides.offsetLeft;
+        }
+        if (arg == "next") {
+            slides.style.left = `${initialPosition - slideWidth}px`;
+            index++;
+        } else {
+            slides.style.left = `${initialPosition + slideWidth}px`;
+            index--;
+        }
+    }
 
-////        allowShift = false;
-////    }
+    //description.innerText = descriptions[index];
 
-////    function checkIndex() {
-////        items.classList.remove('shifting');
+    canISlide = false;
+}
 
-////        if (index == -1) {
-////            items.style.left = -(slidesLength * slideSize) + "px";
-////            index = slidesLength - 1;
-////        }
+function checkIndex() {
+    slides.classList.remove("transition");
 
-////        if (index == slidesLength) {
-////            items.style.left = -(1 * slideSize) + "px";
-////            index = 0;
-////        }
+    if (index == -1) {
+        slides.style.left = `-${slidesLength * slideWidth}px`;
+        index = slidesLength - 1;
+    }
 
-////        allowShift = true;
-////    }
-////}
+    if (index == slidesLength) {
+        slides.style.left = `-${1 * slideWidth}px`;
+        index = 0;
+    }
 
-////slide(slider, sliderItems, prev, next);
+    canISlide = true;
+}

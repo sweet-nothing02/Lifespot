@@ -6,15 +6,20 @@
     <link href="../Static/CSS/index.css" rel="stylesheet" type="text/css" />
     <script src="../Static/JS/index.js"></script>
     <script>
-        //handleSession(logger, checker);
+        handleSession(logger, checker);
 
         const inputParseFunction = function () {
             return document.getElementsByTagName('input')[0].value.toLowerCase();
         }
-
-        //setTimeout(() =>
-        //    alert("Нравится LifeSpot? " + '\n' + "Подпишитесь на наш Instagram: @lifespot999 !"),
-        //    15000);
+        setInterval(() =>
+            showTime("ny", -5), 1000);
+        setInterval(() =>
+            showTime("spb", 3), 1000);
+        setInterval(() =>
+            showTime("london", 0), 1000);
+        setTimeout(() =>
+            alert("Нравится LifeSpot? " + '\n' + "Подпишитесь на наш Instagram: @lifespot999 !"),
+            60000);
     </script>
 </head>
 
@@ -35,17 +40,17 @@
         <div class="video-container">
             <iframe width="336" height="189" src="https://www.youtube.com/embed/srlpC5tmhYs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             <h3 class="video-title">Нью-Йорк, Брайант Парк</h3>
-
+            <p id="ny">UTC-5</p>
         </div>
         <div class="video-container">
             <iframe width="336" height="189" src="https://www.youtube.com/embed/wCcMcaiRbhM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             <h3 class="video-title">Санкт-Петербург, Невский Проспект</h3>
-
+            <p id="spb">UTC+3</p>
         </div>
         <div class="video-container">
             <iframe width="336" height="189" src="https://www.youtube.com/embed/JplMzss6_YE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             <h3 class="video-title">Лондон, автобусный маршрут</h3>
-
+            <p id="london">UTC+0</p>
         </div>
     </div>
 </body>
