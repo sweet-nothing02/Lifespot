@@ -106,8 +106,12 @@ button {
     width: min-content;
     color: #01165c;
     background-color: #db8916;
-    border-color: #01165c;
+    border-color: #db8916;
     border-radius: 6px;
+}
+
+button:hover {
+    border-color: #01165c;
 }
 
 button:active {
